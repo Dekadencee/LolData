@@ -1,0 +1,87 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset=utf-8"/>
+	<link rel="stylesheet" href="css/index.css" type="text/css" media="screen">
+	<script src="jquery-1.11.0.min.js"></script>
+	<title>LolData</title>
+	<script language="javascript">
+		
+		var summonerName = "boomfusrodah";
+		var gameData, gameID;
+		function initData(){
+			//Get gameID
+			var specGameInfoURL = "https://community-league-of-legends.p.mashape.com/api/v1.0/NA/summoner/retrieveInProgressSpectatorGameInfo/" + summonerName;
+			var specURL = "http://spectator.na.lol.riotgames.com:8088/observer-mode/rest/consumer/getLastChunkInfo/na/" + gameID + "/1/token";
+			var inGameURL = "https://teemojson.p.mashape.com/player/na/boomfusrodah/ingame";
+			var riotURL = "https://prod.api.pvp.net/api/lol/na/v1.4/summoner/by-name/Phiat?api_key=0ca51413-3f51-4699-abd7-3c01249d11fa";
+			var url1 = "https://teemojson.p.mashape.com/player/na/Phiat/influence_points";
+			//var url1_header = ["X-Mashape-Authorization","yTwntuIwgnVbJUzAaFUFbhY5xFbjDis6"];
+			$.ajax({
+				url: specGameInfoURL,
+				headers: { "X-Mashape-Authorization" : "yTwntuIwgnVbJUzAaFUFbhY5xFbjDis6" },
+				dataType: "json",
+				  success: function (result, status, xhr) {
+					gameData = result;
+					var addSomething = document.getElementById("para1");
+					addSomething.innerHTML = gameData.playerCredentials.gameId;
+					gameId = gameData.playerCredentials.gameId;
+				  }
+				});
+		}
+		
+		function updateData() {
+			var addSomething = document.getElementById("para1");
+			addSomething.innerHTML = string1.playerCredentials.gameId;
+		
+		}
+		//Retrive most recent data. Set the KeyFrame variable to retrieve more data.
+		function getRecentChunk() {
+			//Set URL to retrieve via spectate api
+			var specURL = "http://spectator.na.lol.riotgames.com:8088/observer-mode/rest/consumer/getGameMetaData/NA1/1332302979/token";
+			//call httpclient
+			$.ajax({
+				url: specURL,
+				headers: { "Access-Control-Allow-Origin":"*" },
+				dataType: "json",
+				  success: function (result, status, xhr) {
+					gameData1 = stringify(result);
+					var addSomething = document.getElementById("para2");
+					addSomething.innerHTML = gameData1;
+				  }
+				});
+			//set keyFrame variable
+		
+		}
+		
+		//Retrieve and store game state.
+		function getKeyFrame() {
+		
+		}
+	
+		//Step 1: Users create account, associate Summoner ID
+		//Step 2: Users create friend groups
+		//Step 3: Site calls for new info every 4/16/24 hours
+		//Step 4: Multitude of graphs and visual displays are made, and updated.
+		//Step 5: Leaderboards, "record holder" for each stat
+		//Most Popular Champs this week, past few days
+		
+		/*
+		
+		
+		
+		
+		*/
+	
+	
+	</script>
+</head>
+<body>
+	<h1>Welcome to LolData</h1>
+	<button type="button" onclick="initData()">Sync Game</button>
+	<button type="button" onclick="updateData()">Update</button>
+	<button type="button" onclick="getRecentChunk()">Get Recent Chunk</button>
+	<h2 id="pointsTest"></h2>
+	<p id="para1">test</p>
+	<p id="para2"></p>
+</body>
+</html>
